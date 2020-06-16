@@ -8,4 +8,5 @@ require (
 	github.com/codegangsta/gin v0.0.0-20171026143024-cafe2ce98974 // indirect
 	github.com/gorilla/mux v1.7.4
 	github.com/mattn/go-shellwords v1.0.10 // indirect
+	github.com/streadway/amqp v1.0.0
 )
