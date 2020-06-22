@@ -1,7 +1,17 @@
 # Testing
 
+```bash
+../../docker-compose up rabbitmq
+source env-sample
+go test -v
+```
+
+# Running locally
+
 Export rabbit env vars
 
 ```bash
-go test -v
+../../docker-compose up rabbitmq
+source env-sample
+go run main.go
 ```

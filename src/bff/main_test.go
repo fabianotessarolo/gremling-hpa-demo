@@ -5,9 +5,11 @@ import (
 	"net/http/httptest"
 	"os"
 	"testing"
+
+	"github.com/fabianotessarolo/gremling-hpa-demo/src/bff/app"
 )
 
-var a App
+var a app.App
 
 func TestMain(m *testing.M) {
 	a.Initialize(

@@ -1,0 +1,4 @@
+export RABBIT_USER=guest 
+export RABBIT_PASSWORD=guest
+export RABBIT_HOST=localhost
+export RABBIT_PORT=5672
