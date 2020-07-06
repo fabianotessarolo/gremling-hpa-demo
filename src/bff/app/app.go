@@ -31,18 +31,10 @@ func (a *App) Initialize(rabbitUser, rabbitPassword, rabbitHost, rabbitPort stri
 	a.Router = mux.NewRouter()
 	a.Router.HandleFunc("/hello", hello).Methods("GET")
 	a.Router.HandleFunc("/countGremlings", countGremlings).Methods("GET")
-	// a.HandleFunc("/hello", hello).Methods("GET")
 }
 
 func (a *App) Run(addr string) {
-	// log.Fatal(http.ListenAndServe(":8086", a.Health.NewHandler()))
 	log.Fatal(http.ListenAndServe(":8080", a.Router))
-}
-
-func failOnError(err error, msg string) {
-	if err != nil {
-		log.Fatalf("%s: %s", msg, err)
-	}
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
@@ -63,11 +55,17 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func countGremlings(w http.ResponseWriter, r *http.Request) {
-	inspectRabbit()
-	// respondWithJSON(w, http.StatusOK, p)
+	e, err := inspectRabbit()
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "Implement")
+		return
+	}
+	respondWithJSON(w, http.StatusOK, e)
+	log.Printf("%+v\n", e)
+
 }
 
-func inspectRabbit() (int, error) {
+func inspectRabbit() (amqp.Queue, error) {
 	//TODO: Implement conneciton reuse, retry, singletons or other strategy.
 	conn, err := amqp.Dial("amqp://" + rUser + ":" + rPassword + "@" + rHost + ":" + rPort + "/")
 	failOnError(err, "Failed to connect to RabbitMQ")
@@ -89,8 +87,7 @@ func inspectRabbit() (int, error) {
 
 	inspect, err := ch.QueueInspect(q.Name)
 	failOnError(err, "Failed to inspect a queue")
-	log.Printf("%+v\n", inspect)
-	return inspect.Messages, err
+	return inspect, err
 }
 
 func respondWithError(w http.ResponseWriter, code int, message string) {
@@ -103,4 +100,10 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
 	w.Write(response)
+}
+
+func failOnError(err error, msg string) {
+	if err != nil {
+		log.Fatalf("%s: %s", msg, err)
+	}
 }
