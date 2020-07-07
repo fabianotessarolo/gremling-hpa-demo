@@ -1,5 +1,5 @@
 export interface Gremling {
   name: string;
-  messages: string;
-  consumers: string;
+  messages: number;
+  consumers: number;
 }

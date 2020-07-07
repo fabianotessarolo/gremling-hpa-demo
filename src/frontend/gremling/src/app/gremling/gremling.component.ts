@@ -11,6 +11,9 @@ import { Gremling } from './gremling';
 
 
 
+
+
+
 export class GremlingComponent implements OnInit {
 
   gremling: Gremling;
@@ -35,5 +38,9 @@ export class GremlingComponent implements OnInit {
         consumers: data['Consumers']
     });
     }
+
+    arrayCreator(n: number): any[] {
+      return Array(n);
+  }
 
 }

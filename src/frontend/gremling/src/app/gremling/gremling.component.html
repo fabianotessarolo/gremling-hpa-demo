@@ -1,17 +1,9 @@
-<div style="padding: 13px;">
-    <mat-card class="gremling" style="margin-top:10px;">
+<div fxLayout="row" fxLayoutAlign="space-between">
+    <mat-card *ngFor="let item of arrayCreator(gremling.messages); let i = index;" class="example-card"
+        style="margin-top:10px;">
         <mat-card-header>
-            <!-- <mat-card-title>Count: {{gremlings.message}}</mat-card-title> -->
+            <mat-card-title>Gremling #{{i}}</mat-card-title>
         </mat-card-header>
-        <mat-card-content>
-            <p>
-                {{gremling.name}}
-                {{gremling.messages}}
-                {{gremling.consumers}}
-            </p>
-        </mat-card-content>
-        <mat-card-actions>
-      <button mat-button> Throw Water!</button>
-    </mat-card-actions>
+        <img mat-card-image class="imgs" src="assets/gremling.png" alt="Gremling #{{i}}">   
     </mat-card>
 </div>
