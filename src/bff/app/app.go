@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/fabianotessarolo/gremling-hpa-demo/src/bff/utils"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/streadway/amqp"
 )
@@ -31,10 +32,12 @@ func (a *App) Initialize(rabbitUser, rabbitPassword, rabbitHost, rabbitPort stri
 	a.Router = mux.NewRouter()
 	a.Router.HandleFunc("/hello", hello).Methods("GET")
 	a.Router.HandleFunc("/countGremlings", countGremlings).Methods("GET")
+
 }
 
 func (a *App) Run(addr string) {
-	log.Fatal(http.ListenAndServe(":8080", a.Router))
+	corsObj := handlers.AllowedOrigins([]string{"*"})
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(corsObj)(a.Router)))
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
