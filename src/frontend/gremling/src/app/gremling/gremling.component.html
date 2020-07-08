@@ -1,0 +1,9 @@
+<div fxLayout="row" fxLayoutAlign="space-between">
+    <mat-card *ngFor="let item of arrayCreator(gremling.messages); let i = index;" class="example-card"
+        style="margin-top:10px;">
+        <mat-card-header>
+            <mat-card-title>Gremling #{{i}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image class="imgs" src="assets/gremling.png" alt="Gremling #{{i}}">   
+    </mat-card>
+</div>
