@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "gremling"
+    }
+  },
+  "defaultProject": "gremling",
+  "cli": {
+    "analytics": "41cfe9e4-ccae-4a13-a109-c8aad1622f48"
+  }
 }
