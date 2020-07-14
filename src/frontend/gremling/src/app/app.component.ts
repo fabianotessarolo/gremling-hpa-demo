@@ -12,28 +12,32 @@ export class AppComponent {
   faLightbulb = faLightbulb;
 
   constructor(private renderer:Renderer2) {}
-  @ViewChild('gremlinsArea', { static: false }) d1: ElementRef;
+  @ViewChild('gremlinsArea', { static: false }) gremlinsArea: ElementRef;
 
-  agua() {
-    console.log('ÁGUA')
-    const stage = this.renderer.createElement('div');
-    const img = this.renderer.createElement('img');
+  gremlinCounter = () => document.querySelectorAll('.gremlin-bounce').length
 
-    this.renderer.addClass(stage, 'stage');
+  agua = () => {
+    if (this.gremlinCounter() <= 512) {
+      let gremlin = this.renderer.createElement('div')
 
-    this.renderer.setStyle(stage, 'margin-top', Math.floor(Math.random() * 60)+'vh');
-    this.renderer.setStyle(stage, 'margin-left', Math.floor(Math.random() * 88)+'%');
+      this.renderer.setStyle(gremlin, 'margin-top', Math.floor(Math.random() * 60)+'vh')
+      this.renderer.setStyle(gremlin, 'margin-left', Math.floor(Math.random() * 88)+'%')
+      
+      this.renderer.addClass(gremlin, 'gremlin-bounce')
 
-    this.renderer.addClass(img, 'gremlin');
-    this.renderer.addClass(img, 'bounce');
-
-    this.renderer.setAttribute(img, 'src', '../assets/gremlin.png');
-  
-    this.renderer.appendChild(stage, img);
-    this.renderer.appendChild(this.d1.nativeElement, stage);
+      this.renderer.appendChild(this.gremlinsArea.nativeElement, gremlin)
+    } else {
+      return false
+    }
   }
 
-  luz() {
-    console.log('LUZ')
+  luz = () => {
+    let gremlins = document.querySelectorAll('.gremlin-bounce')
+
+    if (this.gremlinCounter()) {
+      this.renderer.removeChild(this.gremlinsArea.nativeElement, gremlins[this.gremlinCounter()-1])
+    } else {
+      return false
+    }
   }
 }

@@ -285,7 +285,7 @@
     font-size: 24px;
     font-weight: bold;
     border: 0;
-    border-radius: 3px;
+    border-radius: 5px;
   }
 
   .btn:focus {
@@ -333,23 +333,19 @@
     background-size: cover;
   }
 
-  .stage {
+  .gremlin-bounce {
     display: flex;
     position: absolute;
-  }
-
-  .gremlin {
     align-self: flex-end;
     animation-duration: 2s;
     animation-iteration-count: infinite;
     transform-origin: bottom;
     width: 150px;
-  }
-
-  .bounce {
     animation-name: bounce;
     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    content: url('../assets/gremlin.png');
   }
+
   @keyframes bounce {
     0%   { transform: scale(1,1)      translateY(0); }
     10%  { transform: scale(1.1,.9)   translateY(0); }
@@ -382,9 +378,7 @@
   </div>
 
   <div class="gremlins-area" #gremlinsArea>
-    <!-- <div class="stage">
-      <img src="../assets/gremlin.png" class="box bounce">
-    </div> -->
+    <!-- gremlins are inserted here -->
   </div>
 </div>
 
